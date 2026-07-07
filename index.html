@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/src/assets/logo.png" />
+    
+    <!-- SEO Meta Tags -->
+    <title>PackMate — Where are we packing for next?</title>
+    <meta name="description" content="AI-powered packing checklists personalized for every trip, so you pack right every time." />
+    
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- Main Two-Column Layout -->
+    <div class="app-layout">
+      <!-- 1. LEFT SIDEBAR NAVIGATION (Desktop Only) -->
+      <aside class="sidebar-nav" id="sidebarNav">
+        <!-- Logo Header -->
+        <a href="/" class="sidebar-logo">
+          <img src="/src/assets/logo.png" alt="PackMate Logo" class="sidebar-logo-img" />
+        </a>
+
+        <!-- Nav Items -->
+        <nav class="sidebar-menu-wrapper" aria-label="Sidebar Menu">
+          <ul class="sidebar-menu">
+            <li>
+              <a href="#" class="sidebar-link active" id="navHome">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="#trips" class="sidebar-link" id="navTrips">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>My Trips</span>
+              </a>
+            </li>
+            <li>
+              <a href="#packmateai" class="sidebar-link" id="navPackmateAI">
+                <img src="/packmate-ai.png" alt="Packmate AI" style="width: 20px; height: 20px; object-fit: contain; border-radius: 50%;" />
+                <span>Packmate AI</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Minimal AI Insight Card -->
+        <div class="sidebar-insight-card">
+          <div class="insight-header">
+            <svg class="insight-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              <path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5 5 3Z" opacity="0.6"/>
+            </svg>
+            <h4>Pack Smarter</h4>
+          </div>
+          <p class="text-xs">AI learns your travel style and improves recommendations over time.</p>
+          <a href="#" class="insight-cta" id="btnLearnMore">Learn More</a>
+        </div>
+
+        <!-- User Profile Footer -->
+        <div class="sidebar-user-profile">
+          <div class="user-avatar-block">
+            <span class="user-avatar-fallback">AS</span>
+          </div>
+          <div class="user-meta-block">
+            <h4>Hi, Ashika</h4>
+            <span class="text-xs">Explorer</span>
+          </div>
+          <button class="user-dropdown-btn" aria-label="Toggle profile menu">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- 2. MAIN CONTENT AREA -->
+      <main class="main-dashboard">
+        <!-- Top Toolbar Header -->
+        <header class="dashboard-toolbar">
+          <div class="toolbar-left">
+            <h2 class="header-greeting" id="headerGreeting">Good Morning, Ashika 👋</h2>
+          </div>
+          
+          <!-- Right side controls -->
+          <div class="toolbar-controls">
+            <div class="notification-wrapper" id="notificationWrapper">
+              <button class="control-icon-btn" id="btnNotifications" aria-label="3 notifications">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span class="notification-badge" id="notifBadge">3</span>
+              </button>
+
+              <!-- Notification Dropdown Panel -->
+              <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notif-dropdown-header">
+                  <h4>Notifications</h4>
+                  <button class="notif-mark-all" id="btnMarkAllRead">Mark all read</button>
+                </div>
+                <ul class="notif-list" id="notifList">
+                  <li class="notif-item unread" data-notif-id="1">
+                    <div class="notif-icon notif-icon-trip">🧳</div>
+                    <div class="notif-body">
+                      <p class="notif-text"><strong>Goa Getaway</strong> is in 3 days! Start packing.</p>
+                      <span class="notif-time">2 hours ago</span>
+                    </div>
+                    <button class="notif-dismiss" aria-label="Dismiss notification" data-notif-id="1">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                  </li>
+                  <li class="notif-item unread" data-notif-id="2">
+                    <div class="notif-icon notif-icon-reminder">📋</div>
+                    <div class="notif-body">
+                      <p class="notif-text">Packing reminder: <strong>Bali Escape</strong> — 0 items packed.</p>
+                      <span class="notif-time">5 hours ago</span>
+                    </div>
+                    <button class="notif-dismiss" aria-label="Dismiss notification" data-notif-id="2">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                  </li>
+                  <li class="notif-item unread" data-notif-id="3">
+                    <div class="notif-icon notif-icon-ai">✨</div>
+                    <div class="notif-body">
+                      <p class="notif-text"><strong>New AI feature:</strong> Let PackMate auto-suggest items based on your destination weather.</p>
+                      <span class="notif-time">1 day ago</span>
+                    </div>
+                    <button class="notif-dismiss" aria-label="Dismiss notification" data-notif-id="3">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                  </li>
+                </ul>
+                <div class="notif-empty hidden" id="notifEmpty">
+                  <p>You're all caught up! 🎉</p>
+                </div>
+              </div>
+            </div>
+            
+            <button class="control-icon-btn" aria-label="Help & FAQ">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Home Page Content Wrapper -->
+        <div id="dashboardHomeContent" class="dashboard-home-content">
+          <!-- SECTION 1: GREETING & INTENT -->
+          <section class="dashboard-greeting-section">
+            <h1 class="dashboard-main-heading">Where is your next adventure taking you?</h1>
+            <p class="dashboard-main-subtext" style="margin-bottom: 24px;">Create a personalized packing checklist in just a few minutes.</p>
+          </section>
+
+          <!-- SECTION 2: START NEW TRIP HERO CARD -->
+          <section class="dashboard-section start-trip-section">
+            <div class="start-trip-hero-card" id="cardStartNewTripHero" tabindex="0" role="button">
+              <!-- Left Side Details -->
+              <div class="hero-card-left">
+                <div class="hero-card-left-content">
+                  <div class="large-plus-btn-wrapper">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                  <div class="hero-card-text">
+                    <h2 class="hero-card-title">Start a New Trip</h2>
+                    <p class="hero-card-subtitle">Let's get packing!</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Center Divider -->
+              <div class="hero-card-divider"></div>
+
+              <!-- Right Side Illustration -->
+              <div class="hero-card-right">
+                <img src="/src/assets/start_trip_hero.png" alt="Travel Suitcase Scenic illustration" class="hero-card-img" />
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 3: YOUR TRIPS -->
+          <section class="dashboard-section">
+            <div class="section-header-row">
+              <h3 class="section-heading">Your Trips</h3>
+              <div class="section-actions-wrapper">
+                <button class="btn btn-text-only" id="btnViewAllTrips">View All</button>
+                <button class="arrow-scroll-btn" aria-label="Next trip page" id="btnNextTripScroll">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9-6"></polyline></svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="trips-horizontal-slider">
+              <!-- Trip Card 1: Manali -->
+              <div class="trip-card">
+                <div class="trip-card-image-wrapper">
+                  <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&h=338&q=80" alt="Manali mountains" class="trip-cover-img" />
+                  <div class="trip-cover-overlay"></div>
+                </div>
+                <div class="trip-card-details">
+                  <div class="trip-details-header">
+                    <h4>Manali Trip 🌲</h4>
+                    <button class="card-options-btn" aria-label="Trip actions">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                    </button>
+                  </div>
+                  <span class="trip-dates text-xs">May 20 – May 28, 2025</span>
+                  
+                  <div class="trip-progress-container">
+                    <div class="trip-progress-fraction">
+                      <span>2/8 Packed</span>
+                      <span>25%</span>
+                    </div>
+                    <div class="trip-progress-bar">
+                      <div class="trip-progress-fill" style="width: 25%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Trip Card 2: Bali -->
+              <div class="trip-card">
+                <div class="trip-card-image-wrapper">
+                  <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&h=338&q=80" alt="Bali resort" class="trip-cover-img" />
+                  <div class="trip-cover-overlay"></div>
+                </div>
+                <div class="trip-card-details">
+                  <div class="trip-details-header">
+                    <h4>Bali Escape 🌴</h4>
+                    <button class="card-options-btn" aria-label="Trip actions">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                    </button>
+                  </div>
+                  <span class="trip-dates text-xs">Jun 10 – Jun 18, 2025</span>
+                  
+                  <div class="trip-progress-container">
+                    <div class="trip-progress-fraction">
+                      <span>0/10 Packed</span>
+                      <span>0%</span>
+                    </div>
+                    <div class="trip-progress-bar">
+                      <div class="trip-progress-fill" style="width: 0%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Trip Card 3: Goa -->
+              <div class="trip-card">
+                <div class="trip-card-image-wrapper">
+                  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&h=338&q=80" alt="Goa beach" class="trip-cover-img" />
+                  <div class="trip-cover-overlay"></div>
+                </div>
+                <div class="trip-card-details">
+                  <div class="trip-details-header">
+                    <h4>Goa Getaway 🏖️</h4>
+                    <button class="card-options-btn" aria-label="Trip actions">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                    </button>
+                  </div>
+                  <span class="trip-dates text-xs">Jul 05 – Jul 10, 2025</span>
+                  
+                  <div class="trip-progress-container">
+                    <div class="trip-progress-fraction">
+                      <span>5/12 Packed</span>
+                      <span>41%</span>
+                    </div>
+                    <div class="trip-progress-bar">
+                      <div class="trip-progress-fill" style="width: 41%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sticky Floating AI Prompt Bar -->
+      <div class="floating-prompt-bar-container" id="promptBarContainer">
+            <!-- Chips shown above the input -->
+            <div class="prompt-chips-wrapper">
+              <button class="prompt-chip" data-prompt="I'm travelling to Switzerland for 8 days in December.">🏔️ Switzerland (8 Days)</button>
+              <button class="prompt-chip" data-prompt="Create a checklist for my business trip to Dubai.">💼 Business Trip Dubai</button>
+              <button class="prompt-chip" data-prompt="I'm going camping with friends this weekend.">🏕️ Weekend Camping</button>
+              <button class="prompt-chip" data-prompt="Create a checklist for my vacation in Bali.">🌴 Bali Vacation</button>
+              <button class="prompt-chip" data-prompt="Plan a checklist for my road trip to Goa.">🏖️ Goa Road Trip</button>
+            </div>
+
+            <div class="floating-prompt-bar">
+              <!-- Magic Sparkles Icon -->
+              <div class="prompt-sparkle-wrapper">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="prompt-sparkle-icon">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                </svg>
+              </div>
+
+              <!-- Input field -->
+              <input type="text" id="aiPromptInput" class="prompt-input-field" placeholder="Describe your trip or ask PackMate anything..." aria-label="Ask PackMate anything" />
+
+              <!-- Controls container on right -->
+              <div class="prompt-controls">
+                <!-- Attachment -->
+                <button class="prompt-control-btn" id="btnPromptAttach" aria-label="Attach file">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                </button>
+                <!-- Voice Input -->
+                <button class="prompt-control-btn" id="btnPromptMic" aria-label="Voice input">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                </button>
+                <!-- Generate Button -->
+                <button class="prompt-submit-btn" id="btnPromptSubmit" aria-label="Generate checklist">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MY TRIPS PAGE VIEW -->
+        <div id="myTripsPageContent" class="my-trips-page hidden">
+          <!-- My Trips Header -->
+          <div class="my-trips-header">
+            <div class="my-trips-title-row">
+              <div></div> <!-- Space placeholder -->
+              <button class="btn btn-primary" id="btnNewTripFromTripsPage" style="padding: 10px 20px; border-radius: 12px; font-size: 0.875rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                New Trip
+              </button>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="trips-stats-bar">
+              <div class="stat-card">
+                <span class="stat-value">6</span>
+                <span class="stat-label">Total Trips</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">47</span>
+                <span class="stat-label">Items Packed</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">4</span>
+                <span class="stat-label">Countries</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">3</span>
+                <span class="stat-label">Upcoming</span>
+              </div>
+            </div>
+
+            <!-- Search & Filters -->
+            <div class="trips-controls-row">
+              <div class="trips-search-wrapper">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="tripsSearchInput" class="trips-search-input" placeholder="Search trips..." />
+              </div>
+              <div class="trips-filter-pills" id="tripsFilterPills">
+                <button class="filter-pill active" data-filter="all">All</button>
+                <button class="filter-pill" data-filter="upcoming">Upcoming</button>
+                <button class="filter-pill" data-filter="in-progress">In Progress</button>
+                <button class="filter-pill" data-filter="completed">Completed</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trip Cards Grid -->
+          <div class="trips-grid" id="tripsGrid">
+            <!-- Trip 1: Manali -->
+            <div class="trip-card-large" data-trip-name="Manali Trip" data-status="in-progress">
+              <div class="trip-card-large-img-wrapper">
+                <img src="https://image.pollinations.ai/prompt/manali%20india%20beautiful%20mountains%20cityscape%20high%20quality?width=600&height=340&nologo=true" alt="Manali mountains" class="trip-card-large-img" />
+                <span class="trip-status-badge badge-in-progress">In Progress</span>
+              </div>
+              <div class="trip-card-large-body">
+                <h3>Manali Trip 🌲</h3>
+                <div class="trip-card-large-meta">
+                  <span>📍 Manali, India</span>
+                  <span>📅 May 20 – May 28, 2025</span>
+                </div>
+                <div class="trip-progress-container">
+                  <div class="trip-progress-fraction">
+                    <span>2/8 Packed</span>
+                    <span>25%</span>
+                  </div>
+                  <div class="trip-progress-bar">
+                    <div class="trip-progress-fill" style="width: 25%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trip 2: Bali -->
+            <div class="trip-card-large" data-trip-name="Bali Escape" data-status="upcoming">
+              <div class="trip-card-large-img-wrapper">
+                <img src="https://image.pollinations.ai/prompt/bali%20indonesia%20beautiful%20temple%20beach%20high%20quality?width=600&height=340&nologo=true" alt="Bali temple" class="trip-card-large-img" />
+                <span class="trip-status-badge badge-upcoming">Upcoming</span>
+              </div>
+              <div class="trip-card-large-body">
+                <h3>Bali Escape 🌴</h3>
+                <div class="trip-card-large-meta">
+                  <span>📍 Bali, Indonesia</span>
+                  <span>📅 Jun 10 – Jun 18, 2025</span>
+                </div>
+                <div class="trip-progress-container">
+                  <div class="trip-progress-fraction">
+                    <span>0/10 Packed</span>
+                    <span>0%</span>
+                  </div>
+                  <div class="trip-progress-bar">
+                    <div class="trip-progress-fill" style="width: 0%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trip 3: Goa -->
+            <div class="trip-card-large" data-trip-name="Goa Getaway" data-status="upcoming">
+              <div class="trip-card-large-img-wrapper">
+                <img src="https://image.pollinations.ai/prompt/goa%20india%20beautiful%20beach%20sunset%20high%20quality?width=600&height=340&nologo=true" alt="Goa beach" class="trip-card-large-img" />
+                <span class="trip-status-badge badge-upcoming">Upcoming</span>
+              </div>
+              <div class="trip-card-large-body">
+                <h3>Goa Getaway 🏖️</h3>
+                <div class="trip-card-large-meta">
+                  <span>📍 Goa, India</span>
+                  <span>📅 Jul 05 – Jul 10, 2025</span>
+                </div>
+                <div class="trip-progress-container">
+                  <div class="trip-progress-fraction">
+                    <span>5/12 Packed</span>
+                    <span>41%</span>
+                  </div>
+                  <div class="trip-progress-bar">
+                    <div class="trip-progress-fill" style="width: 41%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trip 4: Shimla (Past) -->
+            <div class="trip-card-large" data-trip-name="Shimla Retreat" data-status="completed">
+              <div class="trip-card-large-img-wrapper">
+                <img src="https://image.pollinations.ai/prompt/shimla%20india%20beautiful%20snow%20mountains%20high%20quality?width=600&height=340&nologo=true" alt="Shimla hills" class="trip-card-large-img" />
+                <span class="trip-status-badge badge-completed">Completed</span>
+              </div>
+              <div class="trip-card-large-body">
+                <h3>Shimla Retreat ❄️</h3>
+                <div class="trip-card-large-meta">
+                  <span>📍 Shimla, India</span>
+                  <span>📅 Dec 22 – Dec 29, 2024</span>
+                </div>
+                <div class="trip-progress-container">
+                  <div class="trip-progress-fraction">
+                    <span>14/14 Packed</span>
+                    <span>100%</span>
+                  </div>
+                  <div class="trip-progress-bar">
+                    <div class="trip-progress-fill" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trip 5: Jaipur (Past) -->
+            <div class="trip-card-large" data-trip-name="Jaipur Heritage" data-status="completed">
+              <div class="trip-card-large-img-wrapper">
+                <img src="https://image.pollinations.ai/prompt/jaipur%20india%20beautiful%20palace%20heritage%20high%20quality?width=600&height=340&nologo=true" alt="Jaipur palace" class="trip-card-large-img" />
+                <span class="trip-status-badge badge-completed">Completed</span>
+              </div>
+              <div class="trip-card-large-body">
+                <h3>Jaipur Heritage 🏰</h3>
+                <div class="trip-card-large-meta">
+                  <span>📍 Jaipur, India</span>
+                  <span>📅 Oct 10 – Oct 15, 2024</span>
+                </div>
+                <div class="trip-progress-container">
+                  <div class="trip-progress-fraction">
+                    <span>10/10 Packed</span>
+                    <span>100%</span>
+                  </div>
+                  <div class="trip-progress-bar">
+                    <div class="trip-progress-fill" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trip 6: Rishikesh (Past) -->
+            <div class="trip-card-large" data-trip-name="Rishikesh Adventure" data-status="completed">
+              <div class="trip-card-large-img-wrapper">
+                <img src="https://image.pollinations.ai/prompt/rishikesh%20india%20beautiful%20river%20ganges%20high%20quality?width=600&height=340&nologo=true" alt="Rishikesh river" class="trip-card-large-img" />
+                <span class="trip-status-badge badge-completed">Completed</span>
+              </div>
+              <div class="trip-card-large-body">
+                <h3>Rishikesh Adventure 🏞️</h3>
+                <div class="trip-card-large-meta">
+                  <span>📍 Rishikesh, India</span>
+                  <span>📅 Aug 15 – Aug 20, 2024</span>
+                </div>
+                <div class="trip-progress-container">
+                  <div class="trip-progress-fraction">
+                    <span>13/13 Packed</span>
+                    <span>100%</span>
+                  </div>
+                  <div class="trip-progress-bar">
+                    <div class="trip-progress-fill" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PACKMATE AI PAGE VIEW -->
+        <div id="packmateAIPageContent" class="packmate-ai-page hidden">
+          <div class="ai-page-header">
+            <h1>Packmate AI</h1>
+            <p id="aiPageSubHeader">Your intelligent travel assistant. Ask me anything or start planning a trip.</p>
+          </div>
+          <!-- Chat container moved here from prompt bar -->
+          <div class="ai-chat-container" id="aiChatContainer">
+            <div class="ai-chat-messages" id="aiChatMessages">
+              <!-- Chat bubbles injected dynamically by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: CHECKLIST PAGE VIEW (Navigated New Page) -->
+        <div id="checklistPageContent" class="checklist-page-view hidden">
+          <!-- CARD 6: Interactive packing checklist view -->
+          <div class="onboarding-card" id="cardChecklist" style="max-width: 1080px; padding: 0; background: transparent; border: none; box-shadow: none; backdrop-filter: none; width: 100%;">
+            
+            <!-- Checklist Top Banner -->
+            <div class="checklist-top-banner">
+              <div class="banner-left">
+                <h2 id="sidebarTripTitle">Trip to Custom Destination</h2>
+                <div class="banner-meta">
+                  <span id="sidebarDest">📍 Custom Destination</span>
+                  <span id="sidebarDates">📅 Flexible dates</span>
+                  <span id="sidebarWeather">☀️ Sunny Weather</span>
+                  <span id="sidebarStyle">💼 City Break • Solo</span>
+                </div>
+              </div>
+              <div class="banner-right">
+                <div class="banner-progress">
+                  <div class="progress-labels">
+                    <span id="checklistCountText">Packing Progress</span>
+                    <strong id="sidebarProgressText">0%</strong>
+                  </div>
+                  <div class="sidebar-progress-bar">
+                    <div class="sidebar-progress-fill" id="sidebarProgressFill" style="width: 0%;"></div>
+                  </div>
+                </div>
+                <div class="banner-actions">
+                  <button class="btn btn-primary" id="btnShareList">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    Export & Share
+                  </button>
+                  <button class="btn btn-secondary" id="btnResetChecklist">Reset</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="checklist-layout">
+              <!-- Main checklist area -->
+              <div class="checklist-content">
+                <!-- Checklist Toolbar Header -->
+                <div class="checklist-actions-header">
+                  <div class="checklist-title-bar">
+                    <h3 id="checklistTitle">Adventure Checklist</h3>
+                  </div>
+                  <span class="text-sm" style="color: var(--text-muted);" id="checklistCountTextBottom">Packed 0 of 15 items</span>
+                </div>
+
+                <!-- Dynamically generated sections will load here -->
+                <div class="flex flex-col gap-6" id="checklistCategoryContainer">
+                  <!-- Javascript will inject categories here -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- 3. MOBILE BOTTOM NAVIGATION TAB BAR (Mobile/Tablet Only) -->
+    <nav class="mobile-bottom-tabs" aria-label="Mobile Bottom Navigation">
+      <ul class="mobile-tab-list">
+        <li>
+          <a href="#" class="mobile-tab-item active" id="tabHome">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span class="text-xs">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#trips" class="mobile-tab-item" id="tabTrips">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <span class="text-xs">My Trips</span>
+          </a>
+        </li>
+        
+        <!-- Giant Floating circular green + action button -->
+        <li class="floating-action-li">
+          <button class="mobile-floating-action-btn" id="mobileFloatingCta" aria-label="Start planning a new trip">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </li>
+        
+        <li>
+          <a href="#lists" class="mobile-tab-item" id="tabLists">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            <span class="text-xs">Lists</span>
+          </a>
+        </li>
+        <li>
+          <a href="#profile" class="mobile-tab-item" id="tabProfile">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span class="text-xs">Profile</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Onboarding Modal Screen Overlay -->
+    <div class="modal-overlay" id="onboardingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div class="logo-container">
+          <img src="/src/assets/logo.png" alt="PackMate Logo" class="logo-img" />
+        </div>
+        
+        <div class="progress-bar-container" id="progressBarContainer">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- CARD 1: Get Started (Name & Age) -->
+        <div class="onboarding-card active" id="cardWelcome">
+          <div class="onboarding-title-wrapper">
+            <h2 class="onboarding-title" id="modalTitle">Welcome Traveler 👋</h2>
+            <p class="onboarding-sub">Let's get to know you before we begin.</p>
+          </div>
+          
+          <div class="form-wrapper">
+            <div class="input-group">
+              <label for="travelerName" class="input-label">What is your name?</label>
+              <input type="text" id="travelerName" class="input-field" placeholder="Enter your name" required autocomplete="name" />
+            </div>
+            
+            <div class="input-group">
+              <label for="travelerAge" class="input-label">How old are you?</label>
+              <input type="number" id="travelerAge" class="input-field" placeholder="Enter your age" required min="1" max="120" />
+            </div>
+            
+            <button class="btn btn-primary" id="btnWelcomeContinue" style="margin-top: 12px;">Continue</button>
+          </div>
+        </div>
+
+        <!-- CARD 2: Choose Planning Method -->
+        <div class="onboarding-card planning-card" id="cardMethods">
+          <div class="onboarding-title-wrapper">
+            <h2 class="onboarding-title">How would you like to plan your trip?</h2>
+            <p class="onboarding-sub">Select the method that best fits your travel prep style.</p>
+          </div>
+          
+          <div class="planning-grid">
+            <!-- Method 1 -->
+            <div class="method-card" id="methodQuestionnaire" tabindex="0" role="button">
+              <div class="method-illustration">📝</div>
+              <h3>Guided Questionnaire</h3>
+              <p>Answer a few simple questions about your upcoming trip.</p>
+            </div>
+            <!-- Method 2 -->
+            <div class="method-card" id="methodDescribe" tabindex="0" role="button">
+              <div class="method-illustration">💬</div>
+              <h3>Describe Your Trip</h3>
+              <p>Tell us about your trip naturally in your own words.</p>
+            </div>
+            <!-- Method 3 -->
+            <div class="method-card" id="methodAIDecide" tabindex="0" role="button">
+              <div class="method-illustration">✨</div>
+              <h3>Let AI Decide</h3>
+              <p>Provide minimal information and let AI handle the details.</p>
+            </div>
+          </div>
+          
+          <div class="wizard-nav">
+            <button class="btn btn-neutral" id="btnBackToWelcome">Back</button>
+          </div>
+        </div>
+
+        <!-- CARD 3: Guided Questionnaire Wizard -->
+        <div class="onboarding-card wizard-card" id="cardQuestionnaire">
+          <div class="onboarding-title-wrapper">
+            <h2 class="onboarding-title" id="questionnaireStepTitle">Guided Questionnaire</h2>
+            <p class="onboarding-sub">Step <span id="currentStepNum">1</span> of 3</p>
+          </div>
+
+          <!-- Wizard Step 1: Destination & Dates -->
+          <div class="wizard-step active" id="qStep1">
+            <div class="input-group">
+              <label for="tripDestination" class="input-label">Where are you heading?</label>
+              <input type="text" id="tripDestination" class="input-field" placeholder="e.g. Tokyo, Swiss Alps, Bali" />
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="input-group">
+                <label for="tripStart" class="input-label">Departure Date</label>
+                <input type="date" id="tripStart" class="input-field" />
+              </div>
+              <div class="input-group">
+                <label for="tripEnd" class="input-label">Return Date</label>
+                <input type="date" id="tripEnd" class="input-field" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Wizard Step 2: Trip Type & Weather -->
+          <div class="wizard-step" id="qStep2">
+            <div class="input-group">
+              <span class="input-label">What kind of trip is this?</span>
+              <div class="pills-grid" id="tripTypeGrid">
+                <div class="pill-option active" data-value="Adventure">🌲 Adventure</div>
+                <div class="pill-option" data-value="Beach">🏖️ Beach</div>
+                <div class="pill-option" data-value="City Break">🏙️ City Break</div>
+                <div class="pill-option" data-value="Business">💼 Business</div>
+                <div class="pill-option" data-value="Relaxation">💆 Relaxation</div>
+                <div class="pill-option" data-value="Culture">🏛️ Culture</div>
+              </div>
+            </div>
+            <div class="input-group">
+              <span class="input-label">What weather do you expect?</span>
+              <div class="pills-grid" id="weatherTypeGrid">
+                <div class="pill-option active" data-value="Sunny">☀️ Warm / Sunny</div>
+                <div class="pill-option" data-value="Cold">❄️ Cold / Snowy</div>
+                <div class="pill-option" data-value="Rainy">🌧️ Wet / Rainy</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wizard Step 3: Activities & Companions -->
+          <div class="wizard-step" id="qStep3">
+            <div class="input-group">
+              <span class="input-label">Select planned activities:</span>
+              <div class="pills-grid" id="activitiesGrid">
+                <div class="pill-option" data-value="Hiking">🥾 Hiking</div>
+                <div class="pill-option" data-value="Swimming">🏊 Swimming</div>
+                <div class="pill-option" data-value="Dining Out">🍽️ Fine Dining</div>
+                <div class="pill-option" data-value="Sightseeing">📸 Sightseeing</div>
+                <div class="pill-option" data-value="Photography">📷 Photography</div>
+                <div class="pill-option" data-value="Working">💻 Remote Work</div>
+              </div>
+            </div>
+            <div class="input-group">
+              <span class="input-label">Who are you traveling with?</span>
+              <div class="pills-grid" id="companionsGrid">
+                <div class="pill-option active" data-value="Solo">🙋 Solo</div>
+                <div class="pill-option" data-value="Partner">👩‍❤️‍👨 Partner</div>
+                <div class="pill-option" data-value="Family">👨‍👩‍👧‍👦 Family</div>
+                <div class="pill-option" data-value="Friends">👫 Friends</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <button class="btn btn-neutral" id="btnQuestionnaireBack">Back</button>
+            <button class="btn btn-primary" id="btnQuestionnaireNext">Continue</button>
+          </div>
+        </div>
+
+        <!-- CARD 4: Describe Your Trip (Natural Language Input) -->
+        <div class="onboarding-card wizard-card" id="cardDescribe">
+          <div class="onboarding-title-wrapper">
+            <h2 class="onboarding-title">Describe Your Trip</h2>
+            <p class="onboarding-sub">Write a brief description and let our AI figure out your checklist.</p>
+          </div>
+          
+          <div class="form-wrapper">
+            <div class="input-group">
+              <label for="describeTripText" class="input-label">What are your travel plans?</label>
+              <textarea id="describeTripText" class="input-field text-area" placeholder="e.g. I'm going hiking in Switzerland next week for 5 days. It is going to be cold and rainy. I plan to take photos, do photography, and travel with my family."></textarea>
+            </div>
+            <button class="btn btn-primary" id="btnDescribeGenerate">Generate Packing List ✨</button>
+          </div>
+          
+          <div class="wizard-nav">
+            <button class="btn btn-neutral" id="btnBackToMethods">Back</button>
+          </div>
+        </div>
+
+        <!-- CARD 5: AI Packing Loading Animation -->
+        <div class="onboarding-card loader-card" id="cardLoader">
+          <div class="loading-illustration">
+            <!-- Shaking suitcase icon -->
+            <svg class="loading-suitcase" viewBox="0 0 100 100">
+              <rect x="10" y="25" width="80" height="60" rx="12" fill="#014424" stroke="#012b16" stroke-width="3"/>
+              <rect x="18" y="32" width="64" height="46" rx="6" fill="#22C55E"/>
+              <rect x="40" y="12" width="20" height="14" rx="3" fill="#014424" stroke="#012b16" stroke-width="2"/>
+              <circle cx="28" cy="42" r="5" fill="#014424"/>
+              <circle cx="72" cy="42" r="5" fill="#014424"/>
+            </svg>
+            
+            <!-- Items popping out -->
+            <div class="loading-item-pop">🪪</div>
+            <div class="loading-item-pop">👕</div>
+            <div class="loading-item-pop">🔌</div>
+          </div>
+          
+          <div class="loading-status-text" id="loaderText">AI is scanning destination weather...</div>
+          <div class="loading-bar-outer">
+            <div class="loading-bar-inner" id="loaderProgress"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Export & Share Modal Popup (Sub-Modal) -->
+    <div class="modal-overlay" id="shareModal" role="dialog" aria-modal="true" style="background-color: rgba(20, 53, 32, 0.4); justify-content: center; align-items: center; z-index: 2000;">
+      <div class="onboarding-card share-modal-body">
+        <div class="onboarding-title-wrapper">
+          <h2 class="onboarding-title">Share Your Checklist</h2>
+          <p class="onboarding-sub">Keep yourself and your travel companions organized.</p>
+        </div>
+        
+        <div class="share-options-grid">
+          <button class="share-btn" id="shareCopyLink">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Copy Link</span>
+          </button>
+          <button class="share-btn" id="sharePrint">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <span>Print PDF</span>
+          </button>
+        </div>
+        
+        <button class="btn btn-neutral" id="shareCloseBtn" style="width: 100%;">Close</button>
+      </div>
+    </div>
+
+
+
+    <!-- Script loading -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
