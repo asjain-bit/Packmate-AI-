@@ -24,10 +24,9 @@ The application relies on a curated palette of natural, earthy, and vibrant tone
 
 ## 3. Typography
 
-PackMate uses a modern, two-font system.
+PackMate uses a modern, unified font system to keep the interface highly legible and beautifully clean.
 
-- **Display & Headings**: `Space Grotesk`, sans-serif. Used for the logo, large decorative text, and all headings. Provides a modern, slightly geometric tech feel.
-- **UI & Body**: `Geist`, -apple-system, sans-serif. Used for all body copy, inputs, buttons, and system text. Extremely legible and clean.
+- **Display, Headings & UI**: `Poppins`, sans-serif. Used for all elements, including the logo, major headings, body copy, and UI controls. Provides a friendly, geometric, and modern aesthetic.
 
 **Sizes:**
 - `.text-xs`: `0.75rem`

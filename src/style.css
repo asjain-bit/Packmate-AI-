@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   /* Brand Guidelines Colors */
@@ -18,9 +18,9 @@
   --card-border: rgba(22, 101, 52, 0.08);
   
   /* Typography */
-  --font-logo: 'Space Grotesk', sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-ui: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-logo: 'Poppins', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+  --font-ui: 'Poppins', sans-serif;
   
   /* Radii */
   --radius-card: 24px;
@@ -1416,7 +1416,7 @@ p {
 .checklist-layout {
   display: block;
   width: 100%;
-  max-width: var(--max-width);
+  max-width: 100%;
   margin: 0 auto;
   animation: slideUpFade 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) both;
 }
@@ -1510,7 +1510,16 @@ p {
   gap: 16px;
 }
 
+.checklist-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
 .category-section {
+  break-inside: avoid;
+  margin-bottom: 24px;
   background-color: white;
   border: 1px solid var(--card-border);
   border-radius: var(--radius-card);
@@ -1564,7 +1573,8 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
+  height: 40px;
+  padding: 0 16px;
   border-radius: 12px;
   border: 1px solid rgba(22, 101, 52, 0.05);
   background-color: var(--background);
