@@ -1,18 +1,6 @@
 // PackMate main dashboard application logic
 
-function getDynamicGreeting(name) {
-  const hour = new Date().getHours();
-  let greeting = 'Good Evening';
-  if (hour < 12) greeting = 'Good Morning';
-  else if (hour < 18) greeting = 'Good Afternoon';
-  return `${greeting}, ${name} 👋`;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-  const headerGreetingInit = document.getElementById('headerGreeting');
-  if (headerGreetingInit && (window.location.hash === '' || window.location.hash === '#')) {
-    headerGreetingInit.innerHTML = getDynamicGreeting('Ashika');
-  }
   // Sidebar Collapse Logic
   const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
   const appLayout = document.querySelector('.app-layout');
@@ -806,7 +794,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (toolbar) toolbar.classList.remove('hidden');
       if (navHome) navHome.classList.add('active');
       const headerGreeting = document.getElementById('headerGreeting');
-      if (headerGreeting) headerGreeting.innerHTML = getDynamicGreeting('Ashika');
+      if (headerGreeting) headerGreeting.innerHTML = 'Good Morning, Ashika 👋';
     } else if (page === 'trips') {
       if (myTripsPage) myTripsPage.classList.remove('hidden');
       if (toolbar) toolbar.classList.remove('hidden');
