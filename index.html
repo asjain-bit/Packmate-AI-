@@ -18,9 +18,14 @@
       <!-- 1. LEFT SIDEBAR NAVIGATION (Desktop Only) -->
       <aside class="sidebar-nav" id="sidebarNav">
         <!-- Logo Header -->
-        <a href="/" class="sidebar-logo">
-          <img src="/src/assets/logo.png" alt="PackMate Logo" class="sidebar-logo-img" />
-        </a>
+        <div class="sidebar-header-wrapper">
+          <a href="/" class="sidebar-logo">
+            <img src="/src/assets/logo.png" alt="PackMate Logo" class="sidebar-logo-img" />
+          </a>
+          <button id="sidebarCollapseBtn" class="sidebar-collapse-btn" aria-label="Toggle Sidebar">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+        </div>
 
         <!-- Nav Items -->
         <nav class="sidebar-menu-wrapper" aria-label="Sidebar Menu">
@@ -98,7 +103,7 @@
                 </div>
                 <ul class="notif-list" id="notifList">
                   <li class="notif-item unread" data-notif-id="1">
-                    <div class="notif-icon notif-icon-trip">🧳</div>
+                    <div class="notif-icon notif-icon-trip"></div>
                     <div class="notif-body">
                       <p class="notif-text"><strong>Goa Getaway</strong> is in 3 days! Start packing.</p>
                       <span class="notif-time">2 hours ago</span>
@@ -118,7 +123,7 @@
                     </button>
                   </li>
                   <li class="notif-item unread" data-notif-id="3">
-                    <div class="notif-icon notif-icon-ai">✨</div>
+                    <div class="notif-icon notif-icon-ai"></div>
                     <div class="notif-body">
                       <p class="notif-text"><strong>New AI feature:</strong> Let PackMate auto-suggest items based on your destination weather.</p>
                       <span class="notif-time">1 day ago</span>
@@ -681,7 +686,7 @@
             </div>
             <!-- Method 3 -->
             <div class="method-card" id="methodAIDecide" tabindex="0" role="button">
-              <div class="method-illustration">✨</div>
+              <div class="method-illustration"></div>
               <h3>Let AI Decide</h3>
               <p>Provide minimal information and let AI handle the details.</p>
             </div>
@@ -703,16 +708,16 @@
           <div class="wizard-step active" id="qStep1">
             <div class="input-group">
               <label for="tripDestination" class="input-label">Where are you heading?</label>
-              <input type="text" id="tripDestination" class="input-field" placeholder="e.g. Tokyo, Swiss Alps, Bali" />
+              <input type="text" id="tripDestination" class="input-field" placeholder="e.g. Tokyo, Swiss Alps, Bali"  required />
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
               <div class="input-group">
                 <label for="tripStart" class="input-label">Departure Date</label>
-                <input type="date" id="tripStart" class="input-field" />
+                <input type="date" id="tripStart" class="input-field"  required />
               </div>
               <div class="input-group">
                 <label for="tripEnd" class="input-label">Return Date</label>
-                <input type="date" id="tripEnd" class="input-field" />
+                <input type="date" id="tripEnd" class="input-field"  required />
               </div>
             </div>
           </div>
@@ -782,7 +787,7 @@
               <label for="describeTripText" class="input-label">What are your travel plans?</label>
               <textarea id="describeTripText" class="input-field text-area" placeholder="e.g. I'm going hiking in Switzerland next week for 5 days. It is going to be cold and rainy. I plan to take photos, do photography, and travel with my family."></textarea>
             </div>
-            <button class="btn btn-primary" id="btnDescribeGenerate">Generate Packing List ✨</button>
+            <button class="btn btn-primary" id="btnDescribeGenerate">Generate Packing List </button>
           </div>
           
           <div class="wizard-nav">

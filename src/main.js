@@ -1,6 +1,23 @@
 // PackMate main dashboard application logic
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Dynamic Greeting Logic
+  const headerGreeting = document.getElementById("headerGreeting");
+  if (headerGreeting) {
+    const hour = new Date().getHours();
+    let greeting = "Good Evening";
+    if (hour < 12) greeting = "Good Morning";
+    else if (hour < 17) greeting = "Good Afternoon";
+    headerGreeting.innerText = `${greeting}, Ashika 👋`;
+  }
+  // Sidebar Collapse Logic
+  const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
+  const appLayout = document.querySelector('.app-layout');
+  if (sidebarCollapseBtn && appLayout) {
+    sidebarCollapseBtn.addEventListener('click', () => {
+      appLayout.classList.toggle('sidebar-collapsed');
+    });
+  }
   
   // ==========================================
   // 1. DASHBOARD OVERVIEW WIDGETS INTERACTIONS
@@ -284,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btnQuestionnaireNext.innerText = "Continue";
     } else {
       if (qStepTitle) qStepTitle.innerText = "What are you doing?";
-      btnQuestionnaireNext.innerText = "Generate Packing List ✨";
+      btnQuestionnaireNext.innerText = "Generate Packing List";
     }
   }
 
@@ -300,8 +317,10 @@ document.addEventListener('DOMContentLoaded', () => {
   btnQuestionnaireNext.addEventListener('click', () => {
     if (currentWizardStep === 1) {
       const dest = document.getElementById('tripDestination').value.trim();
-      if (!dest) {
-        alert('Please enter a destination.');
+      const startD = document.getElementById('tripStart').value;
+      const endD = document.getElementById('tripEnd').value;
+      if (!dest || !startD || !endD) {
+        alert('Please fill out all fields: destination, departure date, and return date.');
         return;
       }
       currentWizardStep++;
@@ -428,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'ess-3', name: 'House Keys', checked: false }
       ],
       Clothing: [
-        { id: 'clo-1', name: 'Underwear & Socks (x5)', checked: false },
+        { id: 'clo-1', name: 'Innerwear & Socks (x5)', checked: false },
         { id: 'clo-2', name: 'Sleepwear', checked: false },
         { id: 'clo-3', name: 'Comfortable Shoes', checked: false }
       ],
