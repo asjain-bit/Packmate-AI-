@@ -1,6 +1,18 @@
 // PackMate main dashboard application logic
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Dynamic Greeting Logic
+  const headerGreeting = document.getElementById('headerGreeting');
+  if (headerGreeting) {
+    const currentHour = new Date().getHours();
+    let greetingTime = 'Evening';
+    if (currentHour < 12) {
+      greetingTime = 'Morning';
+    } else if (currentHour < 17) {
+      greetingTime = 'Afternoon';
+    }
+    headerGreeting.innerText = `Good ${greetingTime}, Ashika 👋`;
+  }
   // Sidebar Collapse Logic
   const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
   const appLayout = document.querySelector('.app-layout');
